@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/menu_rollcall"
+        android:orderInCategory="0"
+        android:icon="@drawable/ic_menu_rollcall_black_24dp"
+        android:title="@string/title_rollcall" />
+
+    <item
+        android:id="@+id/menu_pickup"
+        android:orderInCategory="1"
+        android:icon="@drawable/ic_menu_pickup_24dp"
+        android:title="@string/title_pickup" />
+
+    <item
+        android:id="@+id/menu_result"
+        android:orderInCategory="2"
+        android:icon="@drawable/ic_menu_result_black_24dp"
+        android:title="@string/title_result" />
+
+</menu>

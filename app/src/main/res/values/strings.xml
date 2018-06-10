@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">RollCallAssistant</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_rollcall">点名</string>
+    <string name="title_pickup">抽答</string>
+    <string name="title_result">成绩</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+</resources>
