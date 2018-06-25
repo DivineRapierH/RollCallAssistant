@@ -1,5 +1,6 @@
 package com.lifan.rollcallassistant;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -8,10 +9,13 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
 
 public class RollCall extends AppCompatActivity implements ViewPager.OnPageChangeListener {
+
+    public static final String EXTRA_MESSAGE = "com.lifan.rollcallassistant.MESSAGE";
 
     private BottomNavigationView navigation;
     private ViewPager viewPager;
@@ -26,7 +30,7 @@ public class RollCall extends AppCompatActivity implements ViewPager.OnPageChang
         setContentView(R.layout.activity_roll_call);
 
         viewPager = (ViewPager) findViewById(R.id.viewPager);
-        //添加viewPager事件监听（很容易忘）
+        //添加viewPager事件监听
         viewPager.addOnPageChangeListener(this);
         navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -51,6 +55,23 @@ public class RollCall extends AppCompatActivity implements ViewPager.OnPageChang
             }
         });
     }
+
+    public void importExcel(View view) {
+        Intent intent = new Intent(this, ImportExcel.class);
+        String message = "test message";
+        intent.putExtra(EXTRA_MESSAGE, message);
+        startActivity(intent);
+    }
+
+    public void onClick(View v){
+        Intent intent = new Intent(this, ImportExcel.class);
+        String message = "test message by interface";
+        intent.putExtra(EXTRA_MESSAGE, message);
+        startActivity(intent);
+    }
+
+
+
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {

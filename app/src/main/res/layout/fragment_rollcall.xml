@@ -53,12 +53,23 @@
 
         </LinearLayout>
 
+        <Button
+            android:id="@+id/buttonImportExcel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:fontFamily="monospace"
+            android:onClick="importExcel"
+            android:text="导入EXCEL"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="30dp"
 
             >
 
@@ -68,10 +79,11 @@
                 android:layout_weight="1"
                 />
 
-            <ImageButton
+            <android.support.v7.widget.AppCompatImageButton
                 android:id="@+id/imageButton4"
                 android:layout_width="75dp"
                 android:layout_height="75dp"
+                android:onClick="onClick"
                 android:src="@drawable/ic_fragmentrollcall_yes" />
 
             <View
