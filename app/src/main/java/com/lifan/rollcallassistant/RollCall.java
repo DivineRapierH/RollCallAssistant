@@ -1,6 +1,8 @@
 package com.lifan.rollcallassistant;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -10,8 +12,12 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
+import android.util.Log;
+import org.apache.poi.*;
+
 import android.view.View.OnClickListener;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class RollCall extends AppCompatActivity implements ViewPager.OnPageChangeListener {
 
@@ -57,17 +63,53 @@ public class RollCall extends AppCompatActivity implements ViewPager.OnPageChang
     }
 
     public void importExcel(View view) {
-        Intent intent = new Intent(this, ImportExcel.class);
-        String message = "test message";
-        intent.putExtra(EXTRA_MESSAGE, message);
-        startActivity(intent);
+//        Intent intent = new Intent(this, ImportExcel.class);
+//        String message = "test message";
+//        intent.putExtra(EXTRA_MESSAGE, message);
+//        startActivity(intent);
+
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.setType("application/*");//设置类型
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        startActivityForResult(intent, 1);
+
+
     }
+
+    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        if (resultCode == Activity.RESULT_OK) {
+//            if (requestCode == 1) {
+//                Uri uri = data.getData();
+//                Toast.makeText(this, "文件路径："+uri.getPath().toString(), Toast.LENGTH_SHORT).show();
+//            }
+//        }
+//    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK && data != null) {
+            LogUtil.e(TAG, "选择的文件Uri = " + data.toString());
+            //通过Uri获取真实路径
+            final String excelPath = getRealFilePath(this, data.getData());
+            LogUtil.e(TAG, "excelPath = " + excelPath);//    /storage/emulated/0/test.xls
+            if (excelPath.contains(".xls") || excelPath.contains(".xlsx")) {
+                showSnack("正在加载Excel中...");
+                //载入excel
+                readExcel(excelPath);
+            } else {
+                showSnack("此文件不是excel格式");
+            }
+        }
+    }
+
 
     public void onClick(View v){
         Intent intent = new Intent(this, ImportExcel.class);
         String message = "test message by interface";
         intent.putExtra(EXTRA_MESSAGE, message);
         startActivity(intent);
+
+
     }
 
 
