@@ -1,11 +1,9 @@
 package com.lifan.rollcallassistant;
 
-import android.app.Activity;
-import android.app.ListActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
@@ -17,10 +15,7 @@ import android.view.View;
 import android.util.Log;
 
 import org.apache.commons.codec.binary.Base64;
-import org.apache.poi.*;
 
-import android.view.View.OnClickListener;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.ByteArrayInputStream;
@@ -29,6 +24,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.StreamCorruptedException;
+import java.util.Locale;
 
 public class RollCall extends AppCompatActivity implements ViewPager.OnPageChangeListener {
 
@@ -41,9 +37,10 @@ public class RollCall extends AppCompatActivity implements ViewPager.OnPageChang
     private FragmentPickup fragmentPickup = new FragmentPickup();
     private FragmentResult fragmentResult = new FragmentResult();
 
-
-
     ClassInfo SavedClass = new ClassInfo();
+
+    private int StudentPointer = 0;
+    private int PickPointer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,71 +85,145 @@ public class RollCall extends AppCompatActivity implements ViewPager.OnPageChang
     public void refreshResult(View view){
         //刷新result界面显示学生信息
 
-
         //读取本地文件获得学生信息
         SavedClass = readClass();
-        Toast.makeText(getApplicationContext(), SavedClass.Students[0].getStuId(), Toast.LENGTH_SHORT).show();
         fragmentResult.set();
-//        row1_Id.setText(SavedClass.Students[0].getStuId());
-//        row2_Id.setText(SavedClass.Students[1].getStuId());
-//        row3_Id.setText(SavedClass.Students[2].getStuId());
-//        row4_Id.setText(SavedClass.Students[3].getStuId());
-//        row5_Id.setText(SavedClass.Students[4].getStuId());
-//        row1_Name.setText(SavedClass.Students[0].getStuName());
-//        row2_Name.setText(SavedClass.Students[1].getStuName());
-//        row3_Name.setText(SavedClass.Students[2].getStuName());
-//        row4_Name.setText(SavedClass.Students[3].getStuName());
-//        row5_Name.setText(SavedClass.Students[4].getStuName());
-//        row1_Absence.setText(SavedClass.Students[0].getStuAbsence());
-//        row2_Absence.setText(SavedClass.Students[1].getStuAbsence());
-//        row3_Absence.setText(SavedClass.Students[2].getStuAbsence());
-//        row4_Absence.setText(SavedClass.Students[3].getStuAbsence());
-//        row5_Absence.setText(SavedClass.Students[4].getStuAbsence());
-//        row1_Answer.setText(SavedClass.Students[0].getStuAnswer());
-//        row2_Answer.setText(SavedClass.Students[1].getStuAnswer());
-//        row3_Answer.setText(SavedClass.Students[2].getStuAnswer());
-//        row4_Answer.setText(SavedClass.Students[3].getStuAnswer());
-//        row5_Answer.setText(SavedClass.Students[4].getStuAnswer());
-//        String str1=""+SavedClass.Students[0].getStuAverage();
-//        String str2=""+SavedClass.Students[1].getStuAverage();
-//        String str3=""+SavedClass.Students[2].getStuAverage();
-//        String str4=""+SavedClass.Students[3].getStuAverage();
-//        String str5=""+SavedClass.Students[4].getStuAverage();
-//        row1_Average.setText(str1);
-//        row1_Average.setText(str2);
-//        row1_Average.setText(str3);
-//        row1_Average.setText(str4);
-//        row1_Average.setText(str5);
 
         Toast.makeText(getApplicationContext(), "Successfully refreshed!", Toast.LENGTH_SHORT).show();
     }
-    // up button
-//    public void onClick(View v){
-//        Intent intent = new Intent(this, ImportExcel.class);
-//        String message = "test message by interface";
-//        intent.putExtra(EXTRA_MESSAGE, message);
-//        startActivity(intent);
-//    }
 
+
+    private TextToSpeech mTts ;
 
     public void startRollCall(View v){
-        return;
+        StudentPointer = 0;
+        fragmentRollcall.setName(StudentPointer);
+        mTts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                if(status != TextToSpeech.ERROR) {
+                    mTts.setLanguage(Locale.US);
+                    mTts.speak(SavedClass.Students[StudentPointer].getStuName(), TextToSpeech.QUEUE_FLUSH, null);
+                }
+            }
+        });
+
     }
 
     public void previousStudent(View v){
-        return;
+        if(StudentPointer == 0)
+            return;
+        StudentPointer--;
+        fragmentRollcall.setName(StudentPointer);
+        mTts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                if(status != TextToSpeech.ERROR) {
+                    mTts.setLanguage(Locale.US);
+                    mTts.speak(SavedClass.Students[StudentPointer].getStuName(), TextToSpeech.QUEUE_FLUSH, null);
+                }
+            }
+        });
     }
 
     public void nextStudent(View v){
-        return;
+        if(StudentPointer == 4)
+            return;
+        StudentPointer++;
+        fragmentRollcall.setName(StudentPointer);
+        mTts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                if(status != TextToSpeech.ERROR) {
+                    mTts.setLanguage(Locale.US);
+                    mTts.speak(SavedClass.Students[StudentPointer].getStuName(), TextToSpeech.QUEUE_FLUSH, null);
+                }
+            }
+        });
     }
 
     public void stuAttended(View v){
-        return;
+        if(StudentPointer == 4) {
+            Toast.makeText(getApplicationContext(), "Roll call finished!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        StudentPointer++;
+        fragmentRollcall.setName(StudentPointer);
+        mTts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                if(status != TextToSpeech.ERROR) {
+                    mTts.setLanguage(Locale.US);
+                    mTts.speak(SavedClass.Students[StudentPointer].getStuName(), TextToSpeech.QUEUE_FLUSH, null);
+                }
+            }
+        });
     }
 
     public void stuAbsent(View v){
-        return;
+        SavedClass.Students[StudentPointer].addAbsence();
+        saveClass(SavedClass);
+        if(StudentPointer == 4) {
+            Toast.makeText(getApplicationContext(), "Roll call finished!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        StudentPointer++;
+        fragmentRollcall.setName(StudentPointer);
+        mTts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                if(status != TextToSpeech.ERROR) {
+                    mTts.setLanguage(Locale.US);
+                    mTts.speak(SavedClass.Students[StudentPointer].getStuName(), TextToSpeech.QUEUE_FLUSH, null);
+                }
+            }
+        });
+    }
+
+    public void pickStudent(View v){
+        final int pickPointer = (int)System.currentTimeMillis() % 5;
+        PickPointer = pickPointer;
+        //Toast.makeText(getApplicationContext(), "Pointer:"+pickPointer, Toast.LENGTH_SHORT).show();
+        fragmentPickup.setName(pickPointer);
+        mTts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                if(status != TextToSpeech.ERROR) {
+                    mTts.setLanguage(Locale.US);
+                    mTts.speak(SavedClass.Students[pickPointer].getStuName(), TextToSpeech.QUEUE_FLUSH, null);
+                }
+            }
+        });
+    }
+
+    public void score1(View v){
+        SavedClass.Students[PickPointer].addAnswer(1);
+        Toast.makeText(getApplicationContext(), "Successfully marked!", Toast.LENGTH_SHORT).show();
+        saveClass(SavedClass);
+    }
+
+    public void score2(View v){
+        SavedClass.Students[PickPointer].addAnswer(2);
+        Toast.makeText(getApplicationContext(), "Successfully marked!", Toast.LENGTH_SHORT).show();
+        saveClass(SavedClass);
+    }
+
+    public void score3(View v){
+        SavedClass.Students[PickPointer].addAnswer(3);
+        Toast.makeText(getApplicationContext(), "Successfully marked!", Toast.LENGTH_SHORT).show();
+        saveClass(SavedClass);
+    }
+
+    public void score4(View v){
+        SavedClass.Students[PickPointer].addAnswer(4);
+        Toast.makeText(getApplicationContext(), "Successfully marked!", Toast.LENGTH_SHORT).show();
+        saveClass(SavedClass);
+    }
+
+    public void score5(View v){
+        SavedClass.Students[PickPointer].addAnswer(5);
+        Toast.makeText(getApplicationContext(), "Successfully marked!", Toast.LENGTH_SHORT).show();
+        saveClass(SavedClass);
     }
 
     public void saveClass(ClassInfo class_1){
@@ -217,7 +288,7 @@ public class RollCall extends AppCompatActivity implements ViewPager.OnPageChang
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-        return;
+
     }
 
     @Override
@@ -228,7 +299,22 @@ public class RollCall extends AppCompatActivity implements ViewPager.OnPageChang
 
     @Override
     public void onPageScrollStateChanged(int state) {
-        return;
+
+    }
+
+    @Override
+    protected void onPause(){
+        if(mTts !=null){
+            mTts.stop();
+            mTts.shutdown();
+        }
+        super.onPause();
+    }
+
+    @Override
+    protected void onDestroy(){
+        super.onDestroy();
+        saveClass(SavedClass);
     }
 
 }

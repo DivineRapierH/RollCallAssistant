@@ -23,23 +23,23 @@
             >
 
 
-
             <Button
                 android:id="@+id/button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
                 android:background="@color/colorPrimary"
+                android:onClick="pickStudent"
                 android:text="抽人"
                 android:textColor="@android:color/white"
                 android:textSize="25sp" />
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/textPickName"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:text="李四"
+                android:layout_marginStart="15dp"
+                android:text=""
                 android:textAlignment="center"
                 android:textSize="25sp" />
 
@@ -58,33 +58,32 @@
                 android:id="@+id/MarkButton1"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:textColor="@android:color/white"
                 android:background="#3f51b5"
+                android:onClick="score1"
                 android:text="1"
-                />
-
+                android:textColor="@android:color/white" />
 
 
             <Button
                 android:id="@+id/MarkButton2"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:textColor="@android:color/white"
                 android:layout_marginLeft="10dp"
                 android:background="#3f51b5"
-                android:text="2" />
-
+                android:onClick="score2"
+                android:text="2"
+                android:textColor="@android:color/white" />
 
 
             <Button
                 android:id="@+id/MarkButton3"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:textColor="@android:color/white"
-                android:background="#3f51b5"
                 android:layout_marginLeft="10dp"
-                android:text="3" />
-
+                android:background="#3f51b5"
+                android:onClick="score3"
+                android:text="3"
+                android:textColor="@android:color/white" />
 
 
             <Button
@@ -92,10 +91,10 @@
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_marginLeft="10dp"
-                android:textColor="@android:color/white"
                 android:background="#3f51b5"
-                android:text="4" />
-
+                android:onClick="score4"
+                android:text="4"
+                android:textColor="@android:color/white" />
 
 
             <Button
@@ -103,9 +102,10 @@
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_marginLeft="10dp"
-                android:textColor="@android:color/white"
                 android:background="#3f51b5"
-                android:text="5" />
+                android:onClick="score5"
+                android:text="5"
+                android:textColor="@android:color/white" />
 
 
 
