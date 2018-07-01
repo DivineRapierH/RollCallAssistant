@@ -9,6 +9,15 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="stu_id">学号</string>
+    <string name="stu_name">姓名</string>
+    <string name="stu_absence">缺勤次数</string>
+    <string name="stu_answer">回答次数</string>
+    <string name="stu_average">平均分</string>
+    <string name="attention">注意！</string>
+    <string name="text_caution">请严格按照以下格式导入Excel文件</string>
+    <string name="choose_file">导入文件</string>
+    <string name="start_rollcall">开始点名</string>
 
 
 </resources>

@@ -4,7 +4,7 @@ android {
     compileSdkVersion 27
     defaultConfig {
         applicationId "com.lifan.rollcallassistant"
-        minSdkVersion 19
+        minSdkVersion 24
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
@@ -28,5 +28,7 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-    implementation files('D:/AndroidProjects/RollCallAssistant/libs/poi-3.17.jar')
+    implementation files('D:/AndroidProjects/RollCallAssistant/libs/poi-ooxml-schemas-3.12-20150511-a.jar')
+    implementation files('D:/AndroidProjects/RollCallAssistant/libs/poi-3.12-android-a.jar')
+    implementation files('D:/AndroidProjects/RollCallAssistant/libs/commons-codec-1.11.jar')
 }

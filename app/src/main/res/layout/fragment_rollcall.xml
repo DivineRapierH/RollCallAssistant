@@ -25,31 +25,42 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:gravity="center"
-                android:layout_marginLeft="75dp">
+                android:layout_marginStart="75dp">
 
                 <ImageButton
                     android:id="@+id/imageButtonUp"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_fragmentrollcall_up"
-                    />
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:onClick="previousStudent"
+                    android:src="@drawable/ic_fragmentrollcall_up" />
 
                 <ImageButton
                     android:id="@+id/imageButtonDown"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_fragmentrollcall_down"
-                    />
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:onClick="nextStudent"
+                    android:src="@drawable/ic_fragmentrollcall_down" />
 
             </LinearLayout>
 
             <TextView
                 android:id="@+id/textName"
+                android:layout_width="150dp"
+                android:layout_height="75dp"
+                android:layout_gravity="center"
+                android:text="———"
+                android:textSize="50sp" />
+
+            <Button
+                android:id="@+id/button_startrollcall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+
                 android:layout_gravity="center"
-                android:text="张三"
-                android:textSize="75sp" />
+                android:onClick="startRollCall"
+                android:text="@string/start_rollcall" />
 
         </LinearLayout>
 
@@ -83,7 +94,7 @@
                 android:id="@+id/imageButton4"
                 android:layout_width="75dp"
                 android:layout_height="75dp"
-                android:onClick="onClick"
+                android:onClick="stuAttended"
                 android:src="@drawable/ic_fragmentrollcall_yes" />
 
             <View
@@ -96,6 +107,7 @@
                 android:id="@+id/imageButton5"
                 android:layout_width="75dp"
                 android:layout_height="75dp"
+                android:onClick="stuAbsent"
                 android:src="@drawable/ic_fragmentrollcall_no" />
 
             <View
